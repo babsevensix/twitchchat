@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'variables.scss';
+
+
+html, body { height: 100%; }
+body { 
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+    
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    --mdc-filled-text-field-container-color: white;
+}
+
+
+button {
+  @apply  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none ;
+}

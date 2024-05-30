@@ -34,9 +34,8 @@ export class SignUpComponent implements OnInit {
 
   signUp: FormGroup | undefined;
 
-  signIn: FormGroup | undefined;
 
-  user$ = user(this.auth);
+  
 
   ngOnInit(): void {
     this.signUp = this.fb.group({
@@ -45,10 +44,7 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required]],
     });
 
-    this.signIn = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', [Validators.required]],
-    });
+    
   }
 
   onCreaUtente(): void {
@@ -70,21 +66,5 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  onSignin(): void {
-    if (this.signIn) {
-      const value = this.signIn.value;
-      signInWithEmailAndPassword(this.auth, value.email, value.password).then(
-        (result) => {}
-      );
-    }
-  }
-
-  onLoginWithGoogle(): void {
-    
-    const providerGoogle = new GoogleAuthProvider();
-    providerGoogle.addScope('email');
-    signInWithPopup(this.auth, providerGoogle).then((result)=>{
-      
-    })
-  }
+  
 }

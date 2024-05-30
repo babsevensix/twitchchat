@@ -1,0 +1,49 @@
+
+
+@if(signIn){
+
+  <div class="w-full max-w-xs flex flex-col items-center justify-center">
+    <form [formGroup]="signIn" (ngSubmit)="onSignin()" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div class="mb-4">
+        <mat-form-field class="w-full" [appearance]="'fill'" [floatLabel]="'always'">
+            <mat-label class="block text-gray-700 text-sm font-bold mt-2">Your email</mat-label>
+            <input  matInput placeholder="Please insert a email" value="">
+        </mat-form-field>
+        </div>
+      <div class="mb-6">
+        
+        <mat-form-field class="w-full" [appearance]="'fill'" [floatLabel]="'always'">
+            <mat-label class="block text-gray-700 text-sm font-bold mt-2">Password</mat-label>
+            <input type="password" matInput placeholder="Please insert your password" value="">
+        </mat-form-field>
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="" 
+            
+            type="submit">
+          Sign In
+        </button>
+        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+          Forgot Password?
+        </a>
+
+
+
+        
+      </div>
+      
+      <div class="flex flex-col items-center justify-between my-3">
+        <div class="flex flex-row w-full items-center">
+          <div class="border border-solid border-blue-100 h-[1px] w-full mb-[12px]"></div>
+          <p class="w-full text-center mb-0 whitespace-nowrap px-3">Or sign in with: </p>
+          <div class="border border-solid border-blue-100 h-[1px] w-full mb-[12px]"></div>
+        </div>
+        
+        <button type="button" (click)="onLoginWithGoogle()">GOOGLE</button>
+      </div>
+    </form>
+    
+    
+  </div>
+}
+

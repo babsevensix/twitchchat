@@ -1,0 +1,25 @@
+<!-- <h1>
+{{(userLogged$ | async)?.displayName}}
+</h1> -->
+
+<!-- 
+<pre>
+    {{users$ | async | json}}
+</pre>
+
+
+<hr> -->
+<h1>Users online</h1>
+<pre>
+    {{usersFiltered$ | async | json}}
+</pre>
+<hr>
+
+<button (click)="onAddUser()">Add user</button>
+<br>
+<div>
+<label for="">Unique id:</label>
+<input type="text" [formControl]="uniqueId">
+</div>
+<button (click)="onDelete()">Remove user</button>
+<button (click)="onUpdateDoc()">Update user</button>

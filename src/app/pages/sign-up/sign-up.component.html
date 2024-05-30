@@ -9,20 +9,9 @@
 
 }
 
-<pre>
-{{user$ | async | json}}
-</pre>
 
-@if(signIn){
 
-    <form [formGroup]="signIn" (ngSubmit)="onSignin()">
 
-        <input type="text" formControlName="email" placeholder="Email"> 
-        <input type="password" formControlName="password" placeholder="Password">
-        <button type="submit" [disabled]="signIn.invalid">Accedi</button>
-    </form>
-
-}
 
 <button (click)="logout()">Logout</button>
 
@@ -30,4 +19,3 @@
 <br>
 
 
-<button (click)="onLoginWithGoogle()">GOOGLE</button>
