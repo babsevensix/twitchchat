@@ -15,6 +15,13 @@ export const routes: Routes = [
 
     },
     {
+        path: 'profile',
+        loadComponent: ()=>import('./pages/profile/profile.component').then(p=>p.ProfileComponent),
+        canActivate: [authGuard],
+        title: 'Twitch Chat - Profile'
+
+    },
+    {
         path: '',
         loadComponent: ()=>import('./pages/home/home.component').then(p=>p.HomeComponent),
         canActivate: [authGuard],

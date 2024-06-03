@@ -4,4 +4,6 @@ export interface UserProfile {
   displayName?: string | undefined;
 
   lastOnlineDate: Date;
+
+  avatarUrl: string | undefined;
 }

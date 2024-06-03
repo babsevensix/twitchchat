@@ -8,10 +8,11 @@ import {
 } from '@angular/fire/auth';
 
 import { toSignal } from '@angular/core/rxjs-interop';
-import { distinctUntilChanged, filter, map } from 'rxjs';
+import { Observable, distinctUntilChanged, filter, map, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import {
   CollectionReference,
+  DocumentReference,
   Firestore,
   collection,
   doc,
@@ -62,7 +63,8 @@ export class UserProfileService  {
             const up: UserProfile = {
               username: user.email ?? 'N/A',
               displayName: user.displayName ?? '',
-              lastOnlineDate: new Date()
+              lastOnlineDate: new Date(),
+              avatarUrl: undefined,
             };
             const docRef = doc(this.userProfileCollection, user.uid);
             setDoc(docRef, up);
@@ -89,5 +91,14 @@ export class UserProfileService  {
     signInWithPopup(this.auth, providerGoogle).then(() => {
       this.router.navigateByUrl('/');
     });
+  }
+
+  getUserRef(): Observable<DocumentReference<UserProfile> | undefined>{
+    
+
+    return this.user$.pipe(
+      filter(u => u !== null),
+      switchMap(u => of(doc(this.userProfileCollection, u!.uid)))
+    );
   }
 }

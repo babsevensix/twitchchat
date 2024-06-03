@@ -1,25 +1,10 @@
-<!-- <h1>
-{{(userLogged$ | async)?.displayName}}
-</h1> -->
+<div class="flex flex-col gap-2 w-full overflow-auto">
+    @if(messageService.messages(); as messages){
 
-<!-- 
-<pre>
-    {{users$ | async | json}}
-</pre>
-
-
-<hr> -->
-<h1>Users online</h1>
-<pre>
-    {{usersFiltered$ | async | json}}
-</pre>
-<hr>
-
-<button (click)="onAddUser()">Add user</button>
-<br>
-<div>
-<label for="">Unique id:</label>
-<input type="text" [formControl]="uniqueId">
+        @for(message of messages; track $index){
+            <app-message [message]="message"></app-message>
+        }
+    }
 </div>
-<button (click)="onDelete()">Remove user</button>
-<button (click)="onUpdateDoc()">Update user</button>
+
+<app-insert-message class="block relative bottom-0 left-0 w-full"></app-insert-message>

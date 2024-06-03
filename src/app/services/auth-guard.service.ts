@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, user } from '@angular/fire/auth';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { map } from 'rxjs';
-import { UserProfileService } from './user.profile';
+import { UserProfileService } from './userProfile.service';
 
 
 export const authGuard: CanActivateFn =(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>{

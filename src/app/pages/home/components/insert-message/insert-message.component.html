@@ -1,0 +1,13 @@
+
+<mat-form-field class="w-full" appearance="fill" floatLabel="always">
+    <mat-label>Insert a message</mat-label>
+    <input matInput placeholder="Insert your message..." [formControl]="formInputMessage"/>
+    @if( formInputMessage.hasError('required') && formInputMessage.dirty){
+        <mat-hint class="text-red-800">Please insert a message</mat-hint>
+    }
+</mat-form-field>
+
+
+<button mat-flat-button color="primary" 
+        [disabled]="formInputMessage.invalid"
+        (click)="onSentMessage()">Invia</button>

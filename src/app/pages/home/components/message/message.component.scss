@@ -1,0 +1,12 @@
+:host{
+    @apply w-full flex flex-col;
+}
+
+.message{
+    @apply flex flex-col items-start justify-center p-2 rounded bg-green-300 w-[80%];
+
+    &.sentByMe{
+        @apply self-end items-end bg-blue-300 text-slate-700;
+    }
+}
+

@@ -1,20 +1,26 @@
 import { Component, OnInit, computed, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { UserProfileService } from './services/user.profile';
+import { UserProfileService } from './services/userProfile.service';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SideNavComponent } from "./components/sidenav.component";
+import { MatIconButton } from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, SignUpComponent, MatSidenavModule, MatListModule, MatIconModule, CommonModule, MatToolbarModule, SideNavComponent]
+    imports: [RouterOutlet, SignUpComponent, 
+      RouterLink,
+      MatSidenavModule, MatListModule, 
+      MatIconModule, CommonModule, MatToolbarModule,
+      MatIconButton, SideNavComponent, MatMenuModule]
 })
 export class AppComponent implements OnInit {
   

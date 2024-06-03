@@ -8,15 +8,32 @@ import { FirestoreDatePipe } from "../pipes/firestoreDate.pipe";
 @Component({
     selector: 'app-sidenav',
     template: `
+        <h1 class="text-md font-bold">Users online</h1>
         @for(u of userService.usersOnline$ | async; track $index){
-            <div class="flex flex-col items-start justify-start">
-                <p>{{u.displayName}}</p>
-                <small>{{ u.lastOnlineDate | fromFirestoreDate | date:'dd/MM/yyyy'}}</small>
-                <small>{{ u.lastOnlineDate | fromFirestoreDate | date:'HH:mm:ss'}}</small>
+            
+            <div class="p-2 flex flex-col items-start justify-start overflow-hidden border-b pb-2 mb-3 hover:bg-gray-100">
+                <p class="text-ellipsis overflow-hidden w-full text-xs" >{{u.displayName}} {{u.username}}</p>
+                <small>
+                    <span>
+                        Last viewed 
+                    </span>
+                    <span>
+                        {{ u.lastOnlineDate | fromFirestoreDate | date:'dd/MM/yyyy'}} 
+                    </span>
+                    <span>
+                        {{ u.lastOnlineDate | fromFirestoreDate | date:'HH:mm:ss'}}
+                    </span>
+                    
+                </small>
+                    
             </div>
         }
     `,
-    styles: ``,
+    styles: `
+    :host{
+        @apply relative flex flex-col w-full;
+    }
+    `,
     standalone: true,
     imports: [AsyncPipe, DatePipe, FirestoreDatePipe]
 })

@@ -24,19 +24,24 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { addHours } from 'date-fns';
+import { InsertMessageComponent } from './components/insert-message/insert-message.component';
+import { MessageService } from '../../services/messages.service';
+import { MessageComponent } from "./components/message/message.component";
 
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [AsyncPipe, JsonPipe, ReactiveFormsModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
+    imports: [AsyncPipe, JsonPipe, ReactiveFormsModule, InsertMessageComponent, MessageComponent]
 })
 export class HomeComponent {
   uniqueId = new FormControl<string>('');
 
   private usersService = inject(UsersService);
+  messageService = inject(MessageService);
+
   private auth = inject(Auth);
 
   private firestore: Firestore = inject(Firestore);
@@ -59,21 +64,7 @@ export class HomeComponent {
     this.users$ = collectionData(this.userProfileCollection, {
       idField: 'uniqueId',
     }) as Observable<UserProfile[]>;
-    // this.users$ = (collectionData(userProfileCollection) as Observable<UserProfile[]>).pipe(
-    //   map(users =>{
-    //     return users.filter(m => m.username.startsWith('Al'))
-    //   })
-    // );
-    // const q = query(
-    //   this.userProfileCollection,
-    //   where('username', '>', 'Al'),
-    //   where('username', '<', 'Am'),
-    //   orderBy('username', 'asc')
-    //   // limit(1)
-    // );
-    // this.usersFiltered$ = collectionData(q, {
-    //   idField: 'uniqueId',
-    // }) as Observable<UserProfile[]>;
+    
 
     this.usersFiltered$ = this.usersService.usersOnline$;
   }

@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { NonNullableFormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { UserProfileService } from '../../services/user.profile';
+import { UserProfileService } from '../../services/userProfile.service';
 
 @Component({
   selector: 'app-sign-in',

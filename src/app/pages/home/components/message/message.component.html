@@ -1,0 +1,22 @@
+<div class="message" [ngClass]="{'sentByMe': messageSentFromMe()}">
+    <p>
+        {{ message().message }}
+    </p>
+    <div>
+        <div>
+            
+            <img class="inline-block h-6 w-6 rounded-full ring-2 ring-white" 
+                [src]=" (userSent() | async)?.avatarUrl ?? 'https://avatar.iran.liara.run/public/boy' " alt="">
+  
+        </div>
+        <small>
+            @if(messageSentFromMe()){
+
+            } @else {
+                Sent by {{(userSent() | async)?.displayName  }} at 
+            }
+            
+            {{message().messageSentOn | fromFirestoreDate | date:'dd/MM/yyyy HH:mm'}}
+        </small>
+    </div>
+</div>
