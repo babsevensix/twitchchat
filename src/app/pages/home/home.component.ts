@@ -92,16 +92,15 @@ export class HomeComponent {
     console.log(' documento cancellato ');
   }
 
-  async onUpdateDoc() {
-    const docRef = doc(this.userProfileCollection, this.uniqueId.value!);
+  // async onUpdateDoc() {
+  //   const docRef = doc(this.userProfileCollection, this.uniqueId.value!);
 
-    getDoc(docRef).then((d)=>{
-      const up = d.data();
-      setDoc(docRef, {...up, lastOnlineDate: addHours(new Date(), -3) })
-    });
+  //   getDoc(docRef).then((d)=>{
+  //     const up = d.data();
+  //     setDoc(docRef, {...up, 
+  //       lastOnlineDate: addHours(new Date(), -3),  })
+  //   });
 
-    // updateDoc(docRef, {
-    //   displayName: `DN: ${formatDate(new Date(), 'hh:mm:ss', 'en')}`,
-    // });
-  }
+   
+  // }
 }

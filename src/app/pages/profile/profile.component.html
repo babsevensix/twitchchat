@@ -1,4 +1,26 @@
-<h1>Storage</h1>
-        <label for="fileUpload">Choose a File</label>
-        <input id="fileUpload" type="file" #upload>
-        <button (click)="uploadFile(upload)">Upload</button>
+<form [formGroup]="frm" class="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center justify-center gap-3" (ngSubmit)="onSaveChanges()">
+        <mat-form-field appearance="fill" floatLabel="always" class="w-full">
+                <mat-label >Your display name</mat-label>
+                <input matInput type="text" formControlName="displayName" >
+                <!-- <mat-hint >Display name is required and minimum length is 3 character</mat-hint> -->
+        </mat-form-field>
+
+        <div class="flex relative w-48 h-48">
+                <img [src]="frm.get('avatarUrl')!.value ?? 'https://avatar.iran.liara.run/public/boy'" alt=""
+                        class=" rounded-full ring-2 ring-white">
+
+                <button (click)="upload.click()" class="absolute top-0 right-0"
+                        mat-icon-button><mat-icon>edit</mat-icon></button>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="frm.invalid">Save changes</button>
+
+
+        <input id="fileUpload" type="file" #upload class="hidden" (change)="uploadFile(upload)">
+</form>
+
+
+
+       
+        
+        

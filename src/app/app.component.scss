@@ -1,5 +1,14 @@
 
 :host{
-  @apply flex flex-col items-start justify-stretch w-full h-full;
+  @apply flex flex-col items-start justify-stretch w-full h-screen overflow-hidden m-0 p-0 ;
 }
 
+.wrapper{
+  @apply w-full h-full m-0 p-0 overflow-hidden;
+
+ 
+}
+
+.main-outlet {
+  max-height: calc(100% - 56px);
+}

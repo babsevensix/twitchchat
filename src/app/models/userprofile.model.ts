@@ -5,5 +5,5 @@ export interface UserProfile {
 
   lastOnlineDate: Date;
 
-  avatarUrl: string | undefined;
+  avatarUrl: string | null;
 }

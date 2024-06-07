@@ -8,14 +8,17 @@ import { FirestoreDatePipe } from "../pipes/firestoreDate.pipe";
 @Component({
     selector: 'app-sidenav',
     template: `
-        <h1 class="text-md font-bold">Users online</h1>
+        <h1 class="text-blue-500 !text-sm !xl:text-md font-bold">Users online</h1>
         @for(u of userService.usersOnline$ | async; track $index){
             
             <div class="p-2 flex flex-col items-start justify-start overflow-hidden border-b pb-2 mb-3 hover:bg-gray-100">
-                <p class="text-ellipsis overflow-hidden w-full text-xs" >{{u.displayName}} {{u.username}}</p>
-                <small>
+                <p class="text-ellipsis overflow-hidden w-full text-xs" >
+                    <img [src]="u.avatarUrl" alt="" class="inline-block h-6 w-6 rounded-full ring-2 ring-white">
+                    {{u.displayName}} {{u.username}}
+                </p>
+                <small >
                     <span>
-                        Last viewed 
+                        Last viewed on
                     </span>
                     <span>
                         {{ u.lastOnlineDate | fromFirestoreDate | date:'dd/MM/yyyy'}} 

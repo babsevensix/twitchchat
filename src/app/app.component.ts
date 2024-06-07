@@ -1,5 +1,5 @@
 import { Component, OnInit, computed, inject } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { SignUpComponent } from "./pages/sign-up/sign-up.component";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { UserProfileService } from './services/userProfile.service';
@@ -38,13 +38,19 @@ export class AppComponent implements OnInit {
   private userProfileService = inject(UserProfileService);
   private router = inject(Router);
 
+  private activatedRoute = inject(ActivatedRoute);
+
   
   ngOnInit(): void {
     this.userProfileService.user$.subscribe({
       next: (u)=>{
-        if (u){
-          this.router.navigateByUrl('/');
-        }
+        console.log(' user ', this.activatedRoute.snapshot.pathFromRoot);
+        // if (u){
+        //   if (this.activatedRoute.snapshot.url.some(us => us.path === 'sign-in')){
+            void this.router.navigateByUrl('/');
+        //   }
+          
+        // }
       }
     })
   }

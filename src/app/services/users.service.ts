@@ -12,22 +12,20 @@ import {
 import { Observable } from 'rxjs';
 
 import { addHours } from 'date-fns';
+import { CollectionsService } from './firestorecollections.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  private firestore: Firestore = inject(Firestore);
-
-  private userProfileCollection = collection(
-    this.firestore,
-    'users'
-  ) as CollectionReference<UserProfile>;
+  private collectionService = inject(CollectionsService);
 
   private queryUsersOnline = query(
-    this.userProfileCollection,
+    this.collectionService.userProfileCollection,
     where('lastOnlineDate', '>', addHours(new Date(), -2)),
     orderBy('lastOnlineDate', 'desc')
     // limit(1)
   );
+
+  
   usersOnline$ = collectionData(this.queryUsersOnline, {
     idField: 'uniqueId',
   }) as Observable<UserProfile[]>;

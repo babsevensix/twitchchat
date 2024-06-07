@@ -8,7 +8,7 @@ import {
 } from '@angular/fire/auth';
 
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable, distinctUntilChanged, filter, map, of, switchMap } from 'rxjs';
+import { Observable, combineLatestWith, distinctUntilChanged, filter, map, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import {
   CollectionReference,
@@ -18,8 +18,11 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { UserProfile } from '../models/userprofile.model';
+import { CollectionsService } from './firestorecollections.service';
+import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 @Injectable({ providedIn: 'root' })
 export class UserProfileService  {
@@ -27,7 +30,7 @@ export class UserProfileService  {
 
   private router = inject(Router);
 
-  private firestore: Firestore = inject(Firestore);
+  private collectionService = inject(CollectionsService);
 
   user$ = user(this.auth);
 
@@ -44,10 +47,7 @@ export class UserProfileService  {
     }
   );
 
-  private userProfileCollection = collection(
-    this.firestore,
-    'users'
-  ) as CollectionReference<UserProfile>;
+  
 
 
 
@@ -55,18 +55,22 @@ export class UserProfileService  {
     this.user$
       .pipe(
         filter((user) => user !== null),
+        combineLatestWith(this.getUserProfile())
         
       )
       .subscribe({
-        next: (user) => {
+        next: ([user, existUserProfile]) => {
           if (user) {
-            const up: UserProfile = {
+            let up: UserProfile = {
               username: user.email ?? 'N/A',
               displayName: user.displayName ?? '',
               lastOnlineDate: new Date(),
-              avatarUrl: undefined,
+              avatarUrl: null,
             };
-            const docRef = doc(this.userProfileCollection, user.uid);
+
+            up = existUserProfile ? {...up, ...existUserProfile, lastOnlineDate: new Date()} : up;
+            const docRef = 
+              doc(this.collectionService.userProfileCollection, user.uid);
             setDoc(docRef, up);
           }
         },
@@ -98,7 +102,22 @@ export class UserProfileService  {
 
     return this.user$.pipe(
       filter(u => u !== null),
-      switchMap(u => of(doc(this.userProfileCollection, u!.uid)))
+      switchMap(u => of(doc(this.collectionService.userProfileCollection, u!.uid)))
+    );
+  }
+
+  getUserProfile(): Observable<UserProfile | undefined>{
+    return this.getUserRef().pipe(
+      switchMap(upr => upr ? fromPromise(getDoc(upr)).pipe(
+        map(ds=> ds.data())
+      ) : of(undefined))
+    );
+  }
+
+  updateProfile(value: UserProfile): Observable<void>{
+    return this.getUserRef().pipe(
+      filter(u => u !== null && u !== undefined),
+      switchMap((userRef)=> fromPromise(updateDoc(userRef!, {...value}) ))
     );
   }
 }

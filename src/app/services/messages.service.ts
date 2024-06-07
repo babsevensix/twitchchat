@@ -7,21 +7,19 @@ import { UserProfileService } from './userProfile.service';
 import { Observable, of, switchMap } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { CollectionsService } from './firestorecollections.service';
 
 
 @Injectable({providedIn: 'root'})
 export class MessageService {
-    private firestore: Firestore = inject(Firestore);
+    private collectionService = inject(CollectionsService);
 
-    private messageCollection = collection(
-        this.firestore,
-        'messages'
-      ) as CollectionReference<Message>;
+    
 
     private userProfileService = inject(UserProfileService);
 
     private queryMessages = query(
-        this.messageCollection,
+        this.collectionService.messageCollection,
         // where('lastOnlineDate', '>', addHours(new Date(), -2)),
         orderBy('messageSentOn', 'desc')
         // limit(1)
@@ -47,7 +45,7 @@ export class MessageService {
                         userSent
                     };
 
-                    return fromPromise(addDoc(this.messageCollection, newMessage));
+                    return fromPromise(addDoc(this.collectionService.messageCollection, newMessage));
                 }
                 return of(undefined);
             })
